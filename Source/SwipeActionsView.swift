@@ -282,7 +282,7 @@ class SwipeActionsView: UIView {
     }
 }
 
-class SwipeActionButtonWrapperView: UIView {
+public class SwipeActionButtonWrapperView: UIView {
     let contentRect: CGRect
     var actionBackgroundColor: UIColor?
     
@@ -299,7 +299,7 @@ class SwipeActionButtonWrapperView: UIView {
         configureBackgroundColor(with: action)
     }
     
-    override func draw(_ rect: CGRect) {
+    public override func draw(_ rect: CGRect) {
         super.draw(rect)
         
         if let actionBackgroundColor = self.actionBackgroundColor, let context = UIGraphicsGetCurrentContext() {
@@ -308,12 +308,14 @@ class SwipeActionButtonWrapperView: UIView {
         }
     }
     
-    func configureBackgroundColor(with action: SwipeAction) {
+    @objc
+    public func configureBackgroundColor(with action: SwipeAction) {
         guard action.hasBackgroundColor else {
             isOpaque = false
             return
         }
         
+        action.ownerWrapper = self
         if let backgroundColor = action.backgroundColor {
             actionBackgroundColor = backgroundColor
         } else {
